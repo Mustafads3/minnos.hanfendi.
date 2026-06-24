@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Minnoş Hanımefendi 🌸</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(135deg,#ffd6e7,#ffeccf,#d8f3ff);
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+position:relative;
+}
+
+h1{
+font-size:2rem;
+color:#ff4f8b;
+margin-bottom:20px;
+}
+
+.emoji{
+font-size:3rem;
+margin-bottom:15px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+50%{
+transform:translateY(-10px);
+}
+}
+
+.buttons{
+position:relative;
+height:180px;
+margin-top:30px;
+}
+
+button{
+border:none;
+padding:15px 25px;
+border-radius:50px;
+font-size:1rem;
+cursor:pointer;
+transition:.3s;
+touch-action:manipulation;
+}
+
+#yesBtn{
+background:#ff5fa2;
+color:white;
+box-shadow:0 4px 15px rgba(255,95,162,.4);
+}
+
+#yesBtn:hover{
+transform:scale(1.05);
+}
+
+#noBtn{
+background:#8ec5ff;
+color:white;
+position:absolute;
+left:55%;
+top:60px;
+}
+
+.fade{
+animation:fadeOut 1s forwards;
+}
+
+@keyframes fadeOut{
+to{
+opacity:0;
+transform:scale(.8);
+}
+}
+
+#message{
+display:none;
+animation:fadeIn 1.5s;
+max-width:800px;
+line-height:1.8;
+font-size:1.1rem;
+color:#444;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.hearts{
+position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+font-size:25px;
+animation:float 5s linear forwards;
+}
+
+@keyframes float{
+from{
+transform:translateY(100vh);
+opacity:1;
+}
+to{
+transform:translateY(-120px);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="questionBox">
+
+<div class="emoji">🌸✨🥰✨🌸</div>
+
+<h1>
+Dünyanın 8. harikası olarak 1.57 boyundaki Minnoş Hanımefendi siz misiniz?
+</h1>
+
+<div class="buttons">
+
+<button id="yesBtn">
+💖 Evet Benim
+</button>
+
+<button id="noBtn">
+🙈 Hayır Ben O Kadar Da Abartılacak Güzellikte Değilim
+</button>
+
+</div>
+</div>
+
+<div id="message">
+
+<h1>💖✨ Minnoş Hanımefendi ✨💖</h1>
+
+<p>
+Daha seni tanımıyorum, kim olduğundan bile bir fikrim yok.
+Hayat hikayeni bilmiyorum ama paylaşımlarına dikkat ettim ki yüzün gülüyor ama gözlerin soluk ve cansız bakıyor...
+</p>
+
+<br>
+
+<p>
+Geçmişte neler yaşadığını da bilemem ama moralin her bozuk olduğunda şunu unutmamanı istiyorum:
+Güzelliğin ile övünmelisin. Çünkü güzelliğini tarif edecek olursak yeni doğmuş bir bebeğin ilk gülümsemesine şahit olmak kadar eşsiz bir güzelliğin var.
+</p>
+
+<br>
+
+<p>
+Üzüntün boyun kadar kısa,
+Neşen güzelliğin kadar sonsuz olsun. 🌸💖✨
+</p>
+
+<br>
+
+<p>
+Benden buraya kadar...
+Bunlar yapana kadar canım çıktı. 😂
+Elimden geleni bu kadar... jskdkgodosos 😅
+Umarım beğenmişsindir. 💕🌷
+</p>
+
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+
+function moveButton(){
+
+const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+const x = Math.random() * maxX;
+const y = Math.random() * maxY;
+
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", function(e){
+e.preventDefault();
+moveButton();
+});
+
+document.getElementById("yesBtn").addEventListener("click", () => {
+
+document.getElementById("questionBox").classList.add("fade");
+
+setTimeout(() => {
+
+document.getElementById("questionBox").style.display = "none";
+
+document.getElementById("message").style.display = "block";
+
+createHearts();
+
+},1000);
+
+});
+
+function createHearts(){
+
+setInterval(() => {
+
+const heart = document.createElement("div");
+
+heart.className = "heart";
+
+const emojis = ["💖","🌸","✨","💕","🥰"];
+
+heart.innerHTML =
+emojis[Math.floor(Math.random()*emojis.length)];
+
+heart.style.left =
+Math.random()*100+"vw";
+
+heart.style.fontSize =
+(20+Math.random()*20)+"px";
+
+document.getElementById("hearts").appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},5000);
+
+},250);
+
+}
+
+</script>
+
+</body>
+</html>
